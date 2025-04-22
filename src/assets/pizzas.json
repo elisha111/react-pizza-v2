@@ -1,0 +1,202 @@
+[
+  {
+    "id": 0,
+    "imageUrl": "https://tashirpizza.ru/images/products/44-1966.webp",
+    "title": "Пять сыров",
+    "types": [0, 1],
+    "sizes": [26, 30, 40],
+    "price": 745,
+    "category": 0,
+    "rating": 4
+  },
+  {
+    "id": 1,
+    "imageUrl": "https://tashirpizza.ru/images/products/52-1976.webp",
+    "title": "Пепперони",
+    "types": [0],
+    "sizes": [26, 40],
+    "price": 695,
+    "category": 0,
+    "rating": 6
+  },
+  {
+    "id": 2,
+    "imageUrl": "https://tashirpizza.ru/images/products/670-1981.webp",
+    "title": "Диабло",
+    "types": [0],
+    "sizes": [26, 40],
+    "price": 745,
+    "category": 1,
+    "rating": 4
+  },
+  {
+    "id": 3,
+    "imageUrl": "https://tashirpizza.ru/images/products/399-1458.webp",
+    "title": "Четыре сезона",
+    "types": [1],
+    "sizes": [26, 30, 40],
+    "price": 1045,
+    "category": 2,
+    "rating": 2
+  },
+  {
+    "id": 4,
+    "imageUrl": "https://tashirpizza.ru/images/products/508-1451.webp",
+    "title": "Сливочная с курицей",
+    "types": [0, 1],
+    "sizes": [26, 30, 40],
+    "price": 499,
+    "category": 3,
+    "rating": 8
+  },
+  {
+    "id": 5,
+    "imageUrl": "https://tashirpizza.ru/images/products/41-1986.webp",
+    "title": "Ассорти",
+    "types": [0],
+    "sizes": [30, 40],
+    "price": 745,
+    "category": 2,
+    "rating": 2
+  },
+  {
+    "id": 6,
+    "imageUrl": "https://tashirpizza.ru/images/products/49-1450.webp",
+    "title": "Ташир",
+    "types": [0, 1],
+    "sizes": [26, 30, 40],
+    "price": 745,
+    "category": 1,
+    "rating": 9
+  },
+  {
+    "id": 7,
+    "imageUrl": "https://tashirpizza.ru/images/products/235-1991.webp",
+    "title": "Грибная с ветчиной",
+    "types": [0, 1],
+    "sizes": [26, 30, 40],
+    "price": 745,
+    "category": 4,
+    "rating": 10
+  },
+  {
+    "id": 8,
+    "imageUrl": "https://tashirpizza.ru/images/products/39-1996.webp",
+    "title": "Венеция",
+    "types": [0, 1],
+    "sizes": [26, 30, 40],
+    "price": 745,
+    "category": 5,
+    "rating": 10
+  },
+  {
+    "id": 9,
+    "imageUrl": "https://tashirpizza.ru/images/products/34-2002.webp",
+    "title": "Маргарита",
+    "types": [0, 1],
+    "sizes": [26, 30, 40],
+    "price": 655,
+    "category": 5,
+    "rating": 7
+  },
+  {
+    "id": 10,
+    "imageUrl": "https://tashirpizza.ru/images/products/38-2007.webp",
+    "title": "Альтоно",
+    "types": [0, 1],
+    "sizes": [26, 30, 40],
+    "price": 655,
+    "category": 5,
+    "rating": 7
+  },
+  {
+    "id": 11,
+    "imageUrl": "https://tashirpizza.ru/images/products/478-2012.webp",
+    "title": "Баварская",
+    "types": [0, 1],
+    "sizes": [26, 30, 40],
+    "price": 655,
+    "category": 5,
+    "rating": 7
+  },
+  {
+    "id": 12,
+    "imageUrl": "https://tashirpizza.ru/images/products/48-2017.webp",
+    "title": "Европа",
+    "types": [0, 1],
+    "sizes": [26, 30, 40],
+    "price": 745,
+    "category": 5,
+    "rating": 7
+  },
+  {
+    "id": 13,
+    "imageUrl": "https://tashirpizza.ru/images/products/279-2022.webp",
+    "title": "Мясной пир",
+    "types": [0, 1],
+    "sizes": [26, 30, 40],
+    "price": 775,
+    "category": 5,
+    "rating": 7
+  },
+  {
+    "id": 14,
+    "imageUrl": "https://tashirpizza.ru/images/products/36-2027.webp",
+    "title": "Капричоза",
+    "types": [0, 1],
+    "sizes": [26, 30, 40],
+    "price": 655,
+    "category": 5,
+    "rating": 7
+  },
+  {
+    "id": 15,
+    "imageUrl": "https://tashirpizza.ru/images/products/479-2032.webp",
+    "title": "Грибной жюльен",
+    "types": [0, 1],
+    "sizes": [26, 30, 40],
+    "price": 655,
+    "category": 5,
+    "rating": 7
+  },
+  {
+    "id": 16,
+    "imageUrl": "https://tashirpizza.ru/images/products/568-2037.webp",
+    "title": "Цыпленок с песто",
+    "types": [0, 1],
+    "sizes": [26, 30, 40],
+    "price": 745,
+    "category": 5,
+    "rating": 7
+  },
+  {
+    "id": 17,
+    "imageUrl": "https://tashirpizza.ru/images/products/197-2047.webp",
+    "title": "Барбекю с халапеньо",
+    "types": [0, 1],
+    "sizes": [26, 30, 40],
+    "price": 775,
+    "category": 5,
+    "rating": 7
+  },
+  {
+    "id": 18,
+    "imageUrl": "https://tashirpizza.ru/images/products/522-2052.webp",
+    "title": "Сырный цыплёнок",
+    "types": [0, 1],
+    "sizes": [26, 30, 40],
+    "price": 775,
+    "category": 5,
+    "rating": 7
+  },
+  {
+    "id": 18,
+    "imageUrl": "https://tashirpizza.ru/images/products/42-2067.webp",
+    "title": "Гавайская",
+    "types": [0, 1],
+    "sizes": [26, 30, 40],
+    "price": 745,
+    "category": 5,
+    "rating": 7
+  }
+]
