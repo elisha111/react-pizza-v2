@@ -1,4 +1,22 @@
+import React, { useState } from "react";
+
 function Sort() {
+  // попап сортировки
+  const [open, setOpen] = React.useState(false);
+
+  // выбрать элемент сортировки
+  const sortList = ["популярности", "цене", "алфавиту"];
+  const [activeListElement, setActiveListElement] = React.useState(0);
+
+  // установка имени сортировки
+  const sortName = sortList[activeListElement];
+  
+  // скрытие попапа пи выборе элемента
+  const onClickHiddenList = (index) => {
+    setActiveListElement(index);
+    setOpen(false);
+  };
+
   return (
     <div className="sort">
       <div className="sort__label">
@@ -15,15 +33,26 @@ function Sort() {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span>популярности</span>
+        <span onClick={() => setOpen(!open)}>{sortName}</span>
       </div>
-      <div className="sort__popup">
-        <ul>
-          <li className="active">популярности</li>
-          <li>цене</li>
-          <li>алфавиту</li>
-        </ul>
-      </div>
+      {open && (
+        <div className="sort__popup">
+          <ul>
+            {sortList.map((el, index) => (
+              <li
+                key={index}
+                onClick={() => onClickHiddenList(index)}
+                className={activeListElement === index ? "active" : ""}
+              >
+                {el}
+              </li>
+            ))}
+            {/* <li className="active">популярности</li>
+            <li>цене</li>
+            <li>алфавиту</li> */}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
