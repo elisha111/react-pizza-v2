@@ -1,3 +1,5 @@
+import React from "react";
+
 import "./scss/app.scss";
 
 import Header from "./components/Header";
@@ -5,11 +7,17 @@ import Categories from "./components/Categories";
 import Sort from "./components/Sort";
 import PizzaBlock from "./components/PizzaBlock";
 
-import pizzas from "./assets/pizzas.json";
-
-console.log(pizzas);
-
 function App() {
+
+  // запрос на https://680b4870d5075a76d98a812e.mockapi.io/pizzas
+  const [pizzas, setPizzas] = React.useState([]);
+
+  React.useEffect(() => {
+    fetch("https://680b4870d5075a76d98a812e.mockapi.io/pizzas")
+      .then((res) => res.json())
+      .then((arr) => setPizzas(arr));
+  }, []);
+
   return (
     <div className="wrapper">
       <Header />
