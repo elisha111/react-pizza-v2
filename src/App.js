@@ -1,40 +1,25 @@
 import React from "react";
+import { Routes, Route } from "react-router-dom";
 
 import "./scss/app.scss";
 
 import Header from "./components/Header";
-import Categories from "./components/Categories";
-import Sort from "./components/Sort";
-import PizzaBlock from "./components/PizzaBlock";
+import Home from "./pages/Home";
+import Cart from "./pages/Cart";
+import NotFound from "./pages/NotFound";
 
 function App() {
-
-  // запрос на https://680b4870d5075a76d98a812e.mockapi.io/pizzas
-  const [pizzas, setPizzas] = React.useState([]);
-
-  React.useEffect(() => {
-    fetch("https://680b4870d5075a76d98a812e.mockapi.io/pizzas")
-      .then((res) => res.json())
-      .then((arr) => setPizzas(arr));
-  }, []);
-
   return (
     <div className="wrapper">
       <Header />
       <div className="content">
         <div className="container">
-          <div className="content__top">
-            <Categories />
-            <Sort />
-          </div>
-          <h2 className="content__title">Все пиццы</h2>
-          <div className="content__items">
-            {pizzas.map((item) => (
-              <PizzaBlock key={item.id} {...item} />
-            ))}
-
-            {/* <PizzaBlock title="Мексиканская" price={333} /> */}
-          </div>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+          {/* <NotFound /> */}
         </div>
       </div>
     </div>

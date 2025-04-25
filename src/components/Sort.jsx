@@ -10,7 +10,7 @@ function Sort() {
 
   // установка имени сортировки
   const sortName = sortList[activeListElement];
-  
+
   // скрытие попапа пи выборе элемента
   const onClickHiddenList = (index) => {
     setActiveListElement(index);
