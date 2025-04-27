@@ -11,6 +11,9 @@
     }
 
     b {
+      @media (max-width: 424px) {
+        display: none;
+      }
       margin-right: 8px;
     }
 

@@ -130,6 +130,10 @@
   }
 
   &--cart {
+    @media (max-width: 767px) {
+      padding: 12px;
+    }
+
     display: flex;
     align-items: center;
     line-height: 23px;
