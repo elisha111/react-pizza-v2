@@ -46,7 +46,10 @@ const Home = () => {
   const skeletons = [...new Array(8)].map((_, index) => (
     <Skeleton key={index} />
   ));
-  const items = pizzas.map((item) => <PizzaBlock key={item.id} {...item} />);
+
+  const items = Array.isArray(pizzas)
+    ? pizzas.map((item) => <PizzaBlock key={item.id} {...item} />)
+    : [];
 
   return (
     <div className="container">
