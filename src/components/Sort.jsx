@@ -1,19 +1,27 @@
-import React, { useState } from "react";
+import React from "react";
+import { Value } from "sass";
 
-function Sort() {
+function Sort({ sortType, onChangeSort }) {
   // попап сортировки
   const [open, setOpen] = React.useState(false);
 
   // выбрать элемент сортировки
-  const sortList = ["популярности", "цене", "алфавиту"];
-  const [activeListElement, setActiveListElement] = React.useState(0);
+  const sortList = [
+    { name: "популярности (DESC)", sortProperty: "rating" },
+    { name: "популярности (ASC)", sortProperty: "-rating" },
+    { name: "цене (DESC)", sortProperty: "price" },
+    { name: "цене (ASC)", sortProperty: "-price" },
+    { name: "алфавиту (DESC)", sortProperty: "title" },
+    { name: "алфавиту (ASC)", sortProperty: "-title" },
+  ];
+  // const [activeListElement, setActiveListElement] = React.useState(0);
 
   // установка имени сортировки
-  const sortName = sortList[activeListElement];
+  // const sortName = sortList[sortType].name;
 
   // скрытие попапа пи выборе элемента
   const onClickHiddenList = (index) => {
-    setActiveListElement(index);
+    onChangeSort(index);
     setOpen(false);
   };
 
@@ -33,18 +41,18 @@ function Sort() {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setOpen(!open)}>{sortName}</span>
+        <span onClick={() => setOpen(!open)}>{sortType.name}</span>
       </div>
       {open && (
         <div className="sort__popup">
           <ul>
-            {sortList.map((el, index) => (
+            {sortList.map((obj, index) => (
               <li
                 key={index}
-                onClick={() => onClickHiddenList(index)}
-                className={activeListElement === index ? "active" : ""}
+                onClick={() => onClickHiddenList(obj)}
+                className={sortType.sortProperty === obj.sortProperty ? "active" : ""}
               >
-                {el}
+                {obj.name}
               </li>
             ))}
             {/* <li className="active">популярности</li>
