@@ -1,19 +1,14 @@
 import React from "react";
-
 import { useDispatch, useSelector } from "react-redux";
+import { SearchContext } from "../App";
+import { setCategoryId, setCurrentPage } from "../redux/slices/filterSlise";
+import axios from "axios";
 
 import Categories from "../components/Categories";
 import Sort from "../components/Sort";
 import PizzaBlock from "../components/PizzaBlock";
 import Skeleton from "../components/PizzaBlock/Skeleton";
 import Pagination from "../components/Pagination";
-import { SearchContext } from "../App";
-import {
-  setCategoryId,
-  setCurrentPage,
-  setPageCount,
-} from "../redux/slices/filterSlise";
-import axios from "axios";
 
 const Home = () => {
   const dispath = useDispatch(setCategoryId);
@@ -27,12 +22,8 @@ const Home = () => {
   };
 
   const { searchValue } = React.useContext(SearchContext);
-  // пагинация
-  // const [currentPage, setCurrentPage] = React.useState(1);
 
-  // запрос на https://680b4870d5075a76d98a812e.mockapi.io/pizzas
   const [pizzas, setPizzas] = React.useState([]);
-
   // вывод скелетона
   const [isLoading, setIsLoading] = React.useState(true);
 
