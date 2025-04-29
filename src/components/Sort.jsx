@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setSort } from "../redux/slices/filterSlise";
+import { setSort } from "../redux/slices/filterSlice";
 
 // выбрать элемент сортировки
 const sortList = [
@@ -14,13 +14,13 @@ const sortList = [
 
 function Sort() {
   // redux
-  const dispath = useDispatch();
+  const dispatch = useDispatch();
   const sort = useSelector((state) => state.filter.sort);
   // попап сортировки
   const [open, setOpen] = React.useState(false);
-  // скрытие попапа пи выборе элемента + redux (dispath)
+  // скрытие попапа пи выборе элемента + redux (dispatch)
   const onClickHiddenList = (obj) => {
-    dispath(setSort(obj));
+    dispatch(setSort(obj));
     setOpen(false);
   };
 
