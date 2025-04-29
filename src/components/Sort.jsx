@@ -1,27 +1,26 @@
 import React from "react";
-import { Value } from "sass";
+import { useDispatch, useSelector } from "react-redux";
+import { setSort } from "../redux/slices/filterSlise";
 
-function Sort({ sortType, onChangeSort }) {
+// выбрать элемент сортировки
+const sortList = [
+  { name: "популярности (DESC)", sortProperty: "rating" },
+  { name: "популярности (ASC)", sortProperty: "-rating" },
+  { name: "цене (DESC)", sortProperty: "price" },
+  { name: "цене (ASC)", sortProperty: "-price" },
+  { name: "алфавиту (DESC)", sortProperty: "title" },
+  { name: "алфавиту (ASC)", sortProperty: "-title" },
+];
+
+function Sort() {
+  // redux
+  const dispath = useDispatch();
+  const sort = useSelector((state) => state.filter.sort);
   // попап сортировки
   const [open, setOpen] = React.useState(false);
-
-  // выбрать элемент сортировки
-  const sortList = [
-    { name: "популярности (DESC)", sortProperty: "rating" },
-    { name: "популярности (ASC)", sortProperty: "-rating" },
-    { name: "цене (DESC)", sortProperty: "price" },
-    { name: "цене (ASC)", sortProperty: "-price" },
-    { name: "алфавиту (DESC)", sortProperty: "title" },
-    { name: "алфавиту (ASC)", sortProperty: "-title" },
-  ];
-  // const [activeListElement, setActiveListElement] = React.useState(0);
-
-  // установка имени сортировки
-  // const sortName = sortList[sortType].name;
-
-  // скрытие попапа пи выборе элемента
-  const onClickHiddenList = (index) => {
-    onChangeSort(index);
+  // скрытие попапа пи выборе элемента + redux (dispath)
+  const onClickHiddenList = (obj) => {
+    dispath(setSort(obj));
     setOpen(false);
   };
 
@@ -41,7 +40,7 @@ function Sort({ sortType, onChangeSort }) {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setOpen(!open)}>{sortType.name}</span>
+        <span onClick={() => setOpen(!open)}>{sort.name}</span>
       </div>
       {open && (
         <div className="sort__popup">
@@ -50,14 +49,13 @@ function Sort({ sortType, onChangeSort }) {
               <li
                 key={index}
                 onClick={() => onClickHiddenList(obj)}
-                className={sortType.sortProperty === obj.sortProperty ? "active" : ""}
+                className={
+                  sort.sortProperty === obj.sortProperty ? "active" : ""
+                }
               >
                 {obj.name}
               </li>
             ))}
-            {/* <li className="active">популярности</li>
-            <li>цене</li>
-            <li>алфавиту</li> */}
           </ul>
         </div>
       )}
