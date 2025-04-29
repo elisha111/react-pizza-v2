@@ -3,7 +3,7 @@ import styles from "./Pagination.module.scss";
 
 import ReactPaginate from "react-paginate";
 
-const Pagination = ({ onChangePage }) => {
+const Pagination = ({ onChangePage, currentPage }) => {
   return (
     <ReactPaginate
       className={styles.root}
@@ -13,6 +13,7 @@ const Pagination = ({ onChangePage }) => {
       onPageChange={(e) => onChangePage(e.selected + 1)}
       pageRangeDisplayed={8}
       pageCount={3}
+      forcePage={currentPage - 1}
       renderOnZeroPageCount={null}
     />
   );

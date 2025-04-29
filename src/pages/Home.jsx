@@ -8,11 +8,18 @@ import PizzaBlock from "../components/PizzaBlock";
 import Skeleton from "../components/PizzaBlock/Skeleton";
 import Pagination from "../components/Pagination";
 import { SearchContext } from "../App";
-import { setCategoryId } from "../redux/slices/filterSlise";
+import {
+  setCategoryId,
+  setCurrentPage,
+  setPageCount,
+} from "../redux/slices/filterSlise";
+import axios from "axios";
 
 const Home = () => {
   const dispath = useDispatch(setCategoryId);
-  const { categoryId, sort } = useSelector((state) => state.filter);
+  const { categoryId, sort, currentPage } = useSelector(
+    (state) => state.filter
+  );
   // const sortType = useSelector((state) => state.filter.sort.sortProperty);
 
   const onChangeCategory = (id) => {
@@ -21,13 +28,17 @@ const Home = () => {
 
   const { searchValue } = React.useContext(SearchContext);
   // пагинация
-  const [currentPage, setCurrentPage] = React.useState(1);
+  // const [currentPage, setCurrentPage] = React.useState(1);
 
   // запрос на https://680b4870d5075a76d98a812e.mockapi.io/pizzas
   const [pizzas, setPizzas] = React.useState([]);
 
   // вывод скелетона
   const [isLoading, setIsLoading] = React.useState(true);
+
+  const onChangePage = (number) => {
+    dispath(setCurrentPage(number));
+  };
 
   React.useEffect(() => {
     setIsLoading(true);
@@ -37,14 +48,15 @@ const Home = () => {
     const order = sort.sortProperty.includes("-") ? "asc" : "desc";
     const search = searchValue ? `&search=${searchValue}` : "";
 
-    fetch(
-      `https://680b4870d5075a76d98a812e.mockapi.io/pizzas?page=${currentPage}&limit=8&${category}&sortBy=${sortBy}&order=${order}${search}`
-    )
-      .then((res) => res.json())
-      .then((arr) => {
-        setPizzas(arr);
+    axios
+      .get(
+        `https://680b4870d5075a76d98a812e.mockapi.io/pizzas?page=${currentPage}&limit=8&${category}&sortBy=${sortBy}&order=${order}${search}`
+      )
+      .then((res) => {
+        setPizzas(res.data);
         setIsLoading(false);
       });
+
     window.scrollTo(0, 0);
   }, [categoryId, sort.sortProperty, searchValue, currentPage]);
 
@@ -52,9 +64,7 @@ const Home = () => {
     <Skeleton key={index} />
   ));
 
-  const items = Array.isArray(pizzas)
-    ? pizzas.map((item) => <PizzaBlock key={item.id} {...item} />)
-    : [];
+  const items = pizzas.map((item) => <PizzaBlock key={item.id} {...item} />);
 
   return (
     <div className="container">
@@ -68,7 +78,7 @@ const Home = () => {
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">{isLoading ? skeletons : items}</div>
 
-      <Pagination onChangePage={(number) => setCurrentPage(number)} />
+      <Pagination currentPage={currentPage} onChangePage={onChangePage} />
     </div>
   );
 };
