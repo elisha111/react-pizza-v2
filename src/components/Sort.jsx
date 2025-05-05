@@ -16,6 +16,8 @@ function Sort() {
   // redux
   const dispatch = useDispatch();
   const sort = useSelector((state) => state.filter.sort);
+
+  const sortRef = React.useRef();
   // попап сортировки
   const [open, setOpen] = React.useState(false);
   // скрытие попапа пи выборе элемента + redux (dispatch)
@@ -24,8 +26,20 @@ function Sort() {
     setOpen(false);
   };
 
+  React.useEffect(() => {
+    const hendleClickOutside = (e) => {
+      if (!e.composedPath().includes(sortRef.current)) {
+        setOpen(false);
+      }
+    };
+
+    document.body.addEventListener("click", hendleClickOutside);
+
+    return () => document.body.removeEventListener("click", hendleClickOutside);
+  }, []);
+
   return (
-    <div className="sort">
+    <div ref={sortRef} className="sort">
       <div className="sort__label">
         <svg
           width="10"
