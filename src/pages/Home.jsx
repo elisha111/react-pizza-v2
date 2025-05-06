@@ -60,6 +60,22 @@ const Home = () => {
       });
   };
 
+  // если изменили параметры и был первый рендер, то будет этой useEffect 
+  React.useEffect(() => {
+    if (isMounted.current) {
+      const queryString = qs.stringify({
+        sortProperty: sort.sortProperty,
+        categoryId,
+        currentPage,
+      });
+
+      navigate(`?${queryString}`);
+    }
+
+    isMounted.current = true;
+  }, [categoryId, sort.sortProperty, currentPage]);
+
+  // если был первый рендер, то проверяем параметрыв url и сохраняем в redux
   React.useEffect(() => {
     if (window.location.search) {
       const params = qs.parse(window.location.search.substring(1));
@@ -78,29 +94,18 @@ const Home = () => {
     }
   }, []);
 
+  // Если был первый рендер, то получаем все пиццы
   React.useEffect(() => {
     window.scrollTo(0, 0);
 
-    if (isSearch.current) {
+    if (!isSearch.current) {
       fetchPizzas();
     }
 
     isSearch.current = false;
   }, [categoryId, sort.sortProperty, searchValue, currentPage]);
 
-  React.useEffect(() => {
-    if (isMounted.current) {
-      const queryString = qs.stringify({
-        sortProperty: sort.sortProperty,
-        categoryId,
-        currentPage,
-      });
 
-      navigate(`?${queryString}`);
-    }
-
-    isMounted.current = true;
-  }, [categoryId, sort.sortProperty, currentPage]);
 
   const skeletons = [...new Array(8)].map((_, index) => (
     <Skeleton key={index} />
