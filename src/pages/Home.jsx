@@ -42,7 +42,7 @@ const Home = () => {
     dispatch(setCurrentPage(number));
   };
 
-  const fetchPizzas = () => {
+  const fetchPizzas = async () => {
     setIsLoading(true);
 
     const category = categoryId > 0 ? `&category=${categoryId}` : "";
@@ -50,17 +50,19 @@ const Home = () => {
     const order = sort.sortProperty.includes("-") ? "asc" : "desc";
     const search = searchValue ? `&search=${searchValue}` : "";
 
-    axios
-      .get(
+    try {
+      const res = await axios.get(
         `https://680b4870d5075a76d98a812e.mockapi.io/pizzas?page=${currentPage}&limit=8${category}&sortBy=${sortBy}&order=${order}${search}`
-      )
-      .then((res) => {
-        setPizzas(res.data);
-        setIsLoading(false);
-      });
+      );
+      setPizzas(res.data);
+    } catch (error) {
+      console.log("ERROR", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  // если изменили параметры и был первый рендер, то будет этой useEffect 
+  // если изменили параметры и был первый рендер, то будет этой useEffect
   React.useEffect(() => {
     if (isMounted.current) {
       const queryString = qs.stringify({
@@ -104,8 +106,6 @@ const Home = () => {
 
     isSearch.current = false;
   }, [categoryId, sort.sortProperty, searchValue, currentPage]);
-
-
 
   const skeletons = [...new Array(8)].map((_, index) => (
     <Skeleton key={index} />
