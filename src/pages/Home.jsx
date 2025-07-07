@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { SearchContext } from "../App";
 import {
+  selectFilter,
   setCategoryId,
   setCurrentPage,
   setFilters,
@@ -9,7 +10,7 @@ import {
 
 import qs from "qs";
 
-import { fetchPizzas } from "../redux/slices/pizzaSlice";
+import {fetchPizzas, selectPizzaData} from "../redux/slices/pizzaSlice";
 
 import Categories from "../components/Categories";
 import Sort, { sortList } from "../components/Sort";
@@ -23,10 +24,8 @@ const Home = () => {
 
   const dispatch = useDispatch();
 
-  const { categoryId, sort, currentPage } = useSelector(
-    (state) => state.filter
-  );
-  const { items: pizzas, status } = useSelector((state) => state.pizza);
+  const { categoryId, sort, currentPage, searchValue } = useSelector(selectFilter);
+  const { items: pizzas, status } = useSelector(selectPizzaData);
 
   const isSearch = React.useRef(false);
   const isMounted = React.useRef(false);
@@ -35,8 +34,6 @@ const Home = () => {
   const onChangeCategory = (id) => {
     dispatch(setCategoryId(id));
   };
-
-  const { searchValue } = React.useContext(SearchContext);
 
   // const [pizzas, setPizzas] = React.useState([]);
   // вывод скелетона
