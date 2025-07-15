@@ -1,6 +1,5 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { SearchContext } from "../App";
 import {
   selectFilter,
   setCategoryId,
@@ -10,21 +9,22 @@ import {
 
 import qs from "qs";
 
-import {fetchPizzas, selectPizzaData} from "../redux/slices/pizzaSlice";
+import { fetchPizzas, selectPizzaData } from "../redux/slices/pizzaSlice";
 
 import Categories from "../components/Categories";
 import Sort, { sortList } from "../components/Sort";
 import PizzaBlock from "../components/PizzaBlock";
 import Skeleton from "../components/PizzaBlock/Skeleton";
 import Pagination from "../components/Pagination";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Home = () => {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
-  const { categoryId, sort, currentPage, searchValue } = useSelector(selectFilter);
+  const { categoryId, sort, currentPage, searchValue } =
+    useSelector(selectFilter);
   const { items: pizzas, status } = useSelector(selectPizzaData);
 
   const isSearch = React.useRef(false);
@@ -38,28 +38,25 @@ const Home = () => {
   // const [pizzas, setPizzas] = React.useState([]);
   // вывод скелетона
 
-
   const onChangePage = (number) => {
     dispatch(setCurrentPage(number));
   };
 
   const getPizzas = async () => {
-
     const category = categoryId > 0 ? `&category=${categoryId}` : "";
     const sortBy = sort.sortProperty.replace("-", "");
     const order = sort.sortProperty.includes("-") ? "asc" : "desc";
     const search = searchValue ? `&search=${searchValue}` : "";
 
-    dispatch(fetchPizzas(
-        {
-          category,
-          sortBy,
-          order,
-          search,
-          currentPage,
-        }
-    ));
-
+    dispatch(
+      fetchPizzas({
+        category,
+        sortBy,
+        order,
+        search,
+        currentPage,
+      })
+    );
   };
 
   // если изменили параметры и был первый рендер, то будет этой useEffect
@@ -75,7 +72,7 @@ const Home = () => {
     }
 
     isMounted.current = true;
-  }, [categoryId, sort.sortProperty, currentPage]);
+  }, [categoryId, sort.sortProperty, currentPage, navigate]);
 
   // если был первый рендер, то проверяем параметрыв url и сохраняем в redux
   React.useEffect(() => {
@@ -94,7 +91,7 @@ const Home = () => {
       );
       isSearch.current = true;
     }
-  }, []);
+  }, [dispatch]);
 
   // Если был первый рендер, то получаем все пиццы
   React.useEffect(() => {
@@ -109,7 +106,11 @@ const Home = () => {
     <Skeleton key={index} />
   ));
 
-  const items = pizzas.map((item) => <PizzaBlock key={item.id} {...item} />);
+  const items = pizzas.map((item) => (
+    <Link to={`/pizza/${item.id}`} key={item.id}>
+      <PizzaBlock {...item} />
+    </Link>
+  ));
 
   return (
     <div className="container">
@@ -121,19 +122,21 @@ const Home = () => {
         <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>
-      {
-        status === "error" ?
-          <div className="content__error-info">
-            <h2>
-              Произошла ошибка <span>😕</span>
-            </h2>
-            <p>
-              К сожалению не удалось получить питсы! <br />
-              Попробуйте повторить попытку позже.
-            </p>
-          </div> :
-          <div className="content__items">{status === 'loading' ? skeletons : items}</div>
-      }
+      {status === "error" ? (
+        <div className="content__error-info">
+          <h2>
+            Произошла ошибка <span>😕</span>
+          </h2>
+          <p>
+            К сожалению не удалось получить питсы! <br />
+            Попробуйте повторить попытку позже.
+          </p>
+        </div>
+      ) : (
+        <div className="content__items">
+          {status === "loading" ? skeletons : items}
+        </div>
+      )}
 
       <Pagination currentPage={currentPage} onChangePage={onChangePage} />
     </div>
