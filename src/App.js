@@ -8,6 +8,7 @@ import Cart from "./pages/Cart";
 import NotFound from "./pages/NotFound";
 import FullPizza from "./pages/FullPizza";
 import MainLayout from "./layouts/MainLayout";
+import Test from "./pages/Test";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="" element={<Home />} />
         <Route path="cart" element={<Cart />} />
         <Route path="pizza/:id" element={<FullPizza />} />
+        <Route path="test" element={<Test />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
