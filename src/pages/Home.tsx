@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectFilter,
@@ -18,7 +18,7 @@ import Skeleton from "../components/PizzaBlock/Skeleton";
 import Pagination from "../components/Pagination";
 import { Link, useNavigate } from "react-router-dom";
 
-const Home = () => {
+const Home: FC = () => {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
@@ -31,15 +31,15 @@ const Home = () => {
   const isMounted = React.useRef(false);
   // const sortType = useSelector((state) => state.filter.sort.sortProperty);
 
-  const onChangeCategory = (id) => {
+  const onChangeCategory = (id: number) => {
     dispatch(setCategoryId(id));
   };
 
   // const [pizzas, setPizzas] = React.useState([]);
   // вывод скелетона
 
-  const onChangePage = (number) => {
-    dispatch(setCurrentPage(number));
+  const onChangePage = (page: number) => {
+    dispatch(setCurrentPage(page));
   };
 
   const getPizzas = async () => {
@@ -49,6 +49,7 @@ const Home = () => {
     const search = searchValue ? `&search=${searchValue}` : "";
 
     dispatch(
+      // @ts-ignore
       fetchPizzas({
         category,
         sortBy,
@@ -106,7 +107,7 @@ const Home = () => {
     <Skeleton key={index} />
   ));
 
-  const items = pizzas.map((item) => (
+  const items = pizzas.map((item: any) => (
     <Link to={`/pizza/${item.id}`} key={item.id}>
       <PizzaBlock {...item} />
     </Link>

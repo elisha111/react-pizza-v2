@@ -1,9 +1,14 @@
-import React from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {selectSort, setSort} from "../redux/slices/filterSlice";
+import { selectSort, setSort } from "../redux/slices/filterSlice";
+
+type SortItem = {
+  name: string;
+  sortProperty: string;
+};
 
 // выбрать элемент сортировки
-export const sortList = [
+export const sortList: SortItem[] = [
   { name: "популярности (DESC)", sortProperty: "rating" },
   { name: "популярности (ASC)", sortProperty: "-rating" },
   { name: "цене (DESC)", sortProperty: "price" },
@@ -17,18 +22,18 @@ function Sort() {
   const dispatch = useDispatch();
   const sort = useSelector(selectSort);
 
-  const sortRef = React.useRef();
+  const sortRef = useRef<HTMLDivElement>(null);
   // попап сортировки
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   // скрытие попапа пи выборе элемента + redux (dispatch)
-  const onClickHiddenList = (obj) => {
+  const onClickHiddenList = (obj: SortItem) => {
     dispatch(setSort(obj));
     setOpen(false);
   };
 
-  React.useEffect(() => {
-    const hendleClickOutside = (e) => {
-      if (!e.composedPath().includes(sortRef.current)) {
+  useEffect(() => {
+    const hendleClickOutside = (event: any) => {
+      if (!event.composedPath().includes(sortRef.current)) {
         setOpen(false);
       }
     };
