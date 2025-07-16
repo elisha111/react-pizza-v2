@@ -1,4 +1,4 @@
-import { FC, useCallback, useRef, useState } from "react";
+import { ChangeEvent, FC, useCallback, useRef, useState } from "react";
 
 import styles from "./Search.module.scss";
 
@@ -26,7 +26,7 @@ const Search: FC = () => {
     []
   );
 
-  const onChangeInput = (event: any) => {
+  const onChangeInput = (event: ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
     updSearchValue(event.target.value);
   };

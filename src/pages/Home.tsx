@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectFilter,
@@ -27,8 +27,8 @@ const Home: FC = () => {
     useSelector(selectFilter);
   const { items: pizzas, status } = useSelector(selectPizzaData);
 
-  const isSearch = React.useRef(false);
-  const isMounted = React.useRef(false);
+  const isSearch = useRef(false);
+  const isMounted = useRef(false);
   // const sortType = useSelector((state) => state.filter.sort.sortProperty);
 
   const onChangeCategory = (id: number) => {
@@ -61,7 +61,7 @@ const Home: FC = () => {
   };
 
   // если изменили параметры и был первый рендер, то будет этой useEffect
-  React.useEffect(() => {
+  useEffect(() => {
     if (isMounted.current) {
       const queryString = qs.stringify({
         sortProperty: sort.sortProperty,
@@ -76,7 +76,7 @@ const Home: FC = () => {
   }, [categoryId, sort.sortProperty, currentPage, navigate]);
 
   // если был первый рендер, то проверяем параметрыв url и сохраняем в redux
-  React.useEffect(() => {
+  useEffect(() => {
     if (window.location.search) {
       const params = qs.parse(window.location.search.substring(1));
 
@@ -95,7 +95,7 @@ const Home: FC = () => {
   }, [dispatch]);
 
   // Если был первый рендер, то получаем все пиццы
-  React.useEffect(() => {
+  useEffect(() => {
     window.scrollTo(0, 0);
 
     getPizzas();
