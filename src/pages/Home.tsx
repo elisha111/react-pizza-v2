@@ -1,32 +1,17 @@
 import { FC, useCallback, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
-import {
-  selectFilter,
-  setCategoryId,
-  setCurrentPage,
-  setFilters,
-} from "../redux/slices/filterSlice";
-
-import qs from "qs";
-
-import {
-  fetchPizzas,
-  SearchPizzaParams,
-  selectPizzaData,
-} from "../redux/slices/pizzaSlice";
-
+import { setCategoryId, setCurrentPage } from "../redux/filter/slice";
+import { fetchPizzas } from "../redux/pizza/asyncActions";
 import Categories from "../components/Categories";
-import Sort, { sortList } from "../components/SortPopup";
+import Sort from "../components/SortPopup";
 import PizzaBlock from "../components/PizzaBlock";
 import Skeleton from "../components/PizzaBlock/Skeleton";
 import Pagination from "../components/Pagination";
-import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../redux/store";
-import { log } from "console";
+import { selectPizzaData } from "../redux/pizza/selectors";
+import { selectFilter } from "../redux/filter/selectors";
 
 const Home: FC = () => {
-  const navigate = useNavigate();
-
   const dispatch = useAppDispatch();
 
   const { categoryId, sort, currentPage, searchValue } =
@@ -34,7 +19,7 @@ const Home: FC = () => {
   const { items: pizzas, status } = useSelector(selectPizzaData);
 
   const isSearch = useRef(false);
-  const isMounted = useRef(false);
+  // const isMounted = useRef(false);
   // const sortType = useSelector((state) => state.filter.sort.sortProperty);
 
   const onChangeCategory = useCallback(
@@ -51,7 +36,7 @@ const Home: FC = () => {
     dispatch(setCurrentPage(page));
   };
 
-  const getPizzas = async () => {
+  const getPizzas = useCallback(async () => {
     const category = categoryId > 0 ? `&category=${categoryId}` : "";
     const sortBy = sort.sortProperty.replace("-", "");
     const order = sort.sortProperty.includes("-") ? "asc" : "desc";
@@ -66,7 +51,7 @@ const Home: FC = () => {
         currentPage,
       })
     );
-  };
+  }, [categoryId, currentPage, dispatch, searchValue, sort.sortProperty]);
 
   // если изменили параметры и был первый рендер, то будет этой useEffect
   // useEffect(() => {
@@ -112,7 +97,7 @@ const Home: FC = () => {
     getPizzas();
 
     isSearch.current = false;
-  }, [categoryId, sort.sortProperty, searchValue, currentPage]);
+  }, [categoryId, sort.sortProperty, searchValue, currentPage, getPizzas]);
 
   const skeletons = [...new Array(8)].map((_, index) => (
     <Skeleton key={index} />
