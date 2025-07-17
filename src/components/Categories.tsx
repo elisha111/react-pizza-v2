@@ -1,23 +1,25 @@
-import React, { FC } from "react";
+import React, { FC, memo } from "react";
+import { useWhyDidYouUpdate } from "ahooks";
 
 type CategoriesProps = {
   categoryId: number;
   onChangeCategory: (i: number) => void;
 };
 
-const Categories: FC<CategoriesProps> = (props) => {
+const category = [
+  "Все",
+  "Мясные",
+  "Вегетарианская",
+  "Гриль",
+  "Острые",
+  "Закрытые",
+];
+
+const Categories: FC<CategoriesProps> = memo((props) => {
   const { categoryId, onChangeCategory } = props;
 
   // console.log(value)
   // меню
-  const category = [
-    "Все",
-    "Мясные",
-    "Вегетарианская",
-    "Гриль",
-    "Острые",
-    "Закрытые",
-  ];
   // выбор категории
   // const [activeIndex, setActiveIndex] = React.useState(0);
 
@@ -38,6 +40,6 @@ const Categories: FC<CategoriesProps> = (props) => {
       </ul>
     </div>
   );
-};
+});
 
 export default Categories;

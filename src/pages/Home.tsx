@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef } from "react";
+import { FC, useCallback, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import {
   selectFilter,
@@ -22,6 +22,7 @@ import Skeleton from "../components/PizzaBlock/Skeleton";
 import Pagination from "../components/Pagination";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../redux/store";
+import { log } from "console";
 
 const Home: FC = () => {
   const navigate = useNavigate();
@@ -36,9 +37,12 @@ const Home: FC = () => {
   const isMounted = useRef(false);
   // const sortType = useSelector((state) => state.filter.sort.sortProperty);
 
-  const onChangeCategory = (id: number) => {
-    dispatch(setCategoryId(id));
-  };
+  const onChangeCategory = useCallback(
+    (id: number) => {
+      dispatch(setCategoryId(id));
+    },
+    [dispatch]
+  );
 
   // const [pizzas, setPizzas] = React.useState([]);
   // вывод скелетона
@@ -114,7 +118,9 @@ const Home: FC = () => {
     <Skeleton key={index} />
   ));
 
-  const items = pizzas.map((item: any) => <PizzaBlock {...item} />);
+  const items = pizzas.map((item: any) => (
+    <PizzaBlock key={item.id} {...item} />
+  ));
 
   return (
     <div className="container">
@@ -123,7 +129,7 @@ const Home: FC = () => {
           categoryId={categoryId}
           onChangeCategory={onChangeCategory}
         />
-        <Sort />
+        <Sort value={sort} />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       {status === "error" ? (
