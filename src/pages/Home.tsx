@@ -2,11 +2,19 @@ import { FC, useCallback, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { setCategoryId, setCurrentPage } from "../redux/filter/slice";
 import { fetchPizzas } from "../redux/pizza/asyncActions";
-import Categories from "../components/Categories";
-import Sort from "../components/SortPopup";
-import PizzaBlock from "../components/PizzaBlock";
-import Skeleton from "../components/PizzaBlock/Skeleton";
-import Pagination from "../components/Pagination";
+// import Categories from "../components/Categories";
+// import Sort from "../components/SortPopup";
+// import PizzaBlock from "../components/PizzaBlock";
+// import Skeleton from "../components/PizzaBlock/Skeleton";
+// import Pagination from "../components/Pagination";
+
+import {
+  Skeleton,
+  PizzaBlock,
+  Categories,
+  Sort,
+  Pagination,
+} from "../components";
 import { useAppDispatch } from "../redux/store";
 import { selectPizzaData } from "../redux/pizza/selectors";
 import { selectFilter } from "../redux/filter/selectors";
