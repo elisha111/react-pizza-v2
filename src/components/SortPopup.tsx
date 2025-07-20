@@ -22,7 +22,7 @@ export const sortList: SortItem[] = [
   { name: "алфавиту (ASC)", sortProperty: SortPropertyEnum.TITLE_ASC },
 ];
 
-const SortPopup: FC<SortPopupProps> = memo((props) => {
+export const SortPopup: FC<SortPopupProps> = memo((props) => {
   const { value } = props;
 
   // redux
@@ -88,5 +88,3 @@ const SortPopup: FC<SortPopupProps> = memo((props) => {
     </div>
   );
 });
-
-export default SortPopup;

@@ -6,7 +6,7 @@ import debounce from "lodash.debounce";
 import { useDispatch } from "react-redux";
 import { setSearchValue } from "../../redux/filter/slice";
 
-const Search: FC = () => {
+export const Search: FC = () => {
   const dispatch = useDispatch();
 
   const [value, setValue] = useState<string>("");
@@ -23,7 +23,7 @@ const Search: FC = () => {
     debounce((str) => {
       dispatch(setSearchValue(str));
     }, 250),
-    []
+    [dispatch]
   );
 
   const onChangeInput = (event: ChangeEvent<HTMLInputElement>) => {
@@ -57,7 +57,7 @@ const Search: FC = () => {
         onChange={onChangeInput}
         value={value}
         className={styles.input}
-        placeholder="Поиск питсы..."
+        placeholder="Поиск пиццы..."
         type="text"
       />
       {value && (
@@ -80,5 +80,3 @@ const Search: FC = () => {
     </div>
   );
 };
-
-export default Search;

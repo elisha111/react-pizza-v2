@@ -5,7 +5,6 @@ import "./scss/app.scss";
 
 import Home from "./pages/Home";
 import MainLayout from "./layouts/MainLayout";
-import Test from "./pages/Test";
 import { lazy, Suspense } from "react";
 
 // const Cart = lazy(() => import(/* webpackChunkName: "Cart" */ "./pages/Cart"));
@@ -43,7 +42,6 @@ function App() {
             </Suspense>
           }
         />
-        <Route path="test" element={<Test />} />
         <Route
           path="*"
           element={

@@ -14,7 +14,7 @@ type PizzaBlockProps = {
   types: number[];
 };
 
-const PizzaBlock: FC<PizzaBlockProps> = (props) => {
+export const PizzaBlock: FC<PizzaBlockProps> = (props) => {
   const { id, title, price, imageUrl, sizes, types } = props;
   // выборка теста
   const [typePizza, setTypePizza] = React.useState(0);
@@ -105,5 +105,3 @@ const PizzaBlock: FC<PizzaBlockProps> = (props) => {
     </div>
   );
 };
-
-export default PizzaBlock;

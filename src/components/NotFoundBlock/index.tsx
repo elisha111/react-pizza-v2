@@ -2,7 +2,7 @@ import { FC } from "react";
 
 import styles from "./NotFoundBlock.module.scss";
 
-const NotFoundBlock: FC = () => {
+export const NotFoundBlock: FC = () => {
   return (
     <div className={styles.wrapper}>
       <span className={styles.imgbox}>
@@ -60,5 +60,3 @@ const NotFoundBlock: FC = () => {
     </div>
   );
 };
-
-export default NotFoundBlock;
