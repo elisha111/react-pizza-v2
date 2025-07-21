@@ -14,6 +14,7 @@ if (rootElem) {
   root.render(
     <Provider store={store}>
       <BrowserRouter
+        basename="/react-pizza-v2"
         future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
       >
         <App />
